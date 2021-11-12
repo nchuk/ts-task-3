@@ -8,9 +8,29 @@
  */
 
 export class Currency{
+    public name : string;
+    public value : number;
+    public unit : string;
+    public CurrencyType: CurrencyType;
+    
+    constructor (name:string, value: number, unit: string){
+        if (!name || !unit || value < 0) {
+            throw Error();
+        }
+
+        this.name = name;
+        this.value = value;
+        this.unit = unit;
+    }
 
 }
 
 export enum CurrencyType {
+
+    "Dollar" = "Material",
+    "Ruble" = "Material",
+    "XRP" = "Crypt",
+    "Etherium" = "Crypt",
+    "Gold" = "Metal-deposit"
 
 }
