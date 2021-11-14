@@ -16,7 +16,7 @@ export class Vault implements ISecureVaultRequisites{
 		  if (value.name === currency.name && value.value >= currency.value) {
 			value.value -= currency.value;
 		  } else {
-			throw new Error("Ищу другую работы, а то зарплата слишком маленькая");
+			throw new Error("Ищи другую работу, а то зарплата слишком маленькая");
 		  }
 		});
 	  }
