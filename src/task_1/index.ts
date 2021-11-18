@@ -30,8 +30,10 @@ export enum CurrencyType {
 
     "Dollar" = "Material",
     "Ruble" = "Material",
+    "ru" = "Material",
     "XRP" = "Crypt",
     "Etherium" = "Crypt",
-    "Gold" = "Metal-deposit"
+    "Gold" = "Metal-deposit",
+    "alpha" = "CryptoCurrency"
 
 }
