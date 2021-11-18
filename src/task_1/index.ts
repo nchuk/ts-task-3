@@ -11,9 +11,9 @@ export class Currency{
     public name : string;
     public value : number;
     public unit : string;
-    public CurrencyType: CurrencyType;
+    public type: CurrencyType;
     
-    constructor (name:string, value: number, unit: string){
+    constructor (name: keyof typeof CurrencyType, value: number, unit: string){
         if (!name || !unit || value < 0) {
             throw Error();
         }
@@ -21,6 +21,7 @@ export class Currency{
         this.name = name;
         this.value = value;
         this.unit = unit;
+        this.type = CurrencyType[name];
     }
 
 }

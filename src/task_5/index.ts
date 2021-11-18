@@ -13,14 +13,14 @@ import { ISecureVaultRequisites, Vault } from "../task_3";
 export class BankController{
 
     private static instance: BankController;
-    private vaultStore: Vault[] = [];
+    private vaultStore: Vault[];
 
     public static getInstance(): BankController{
         if(!this.instance){
-            BankController.instance = new BankController();
+            this.instance = new BankController();
         }
 
-        return BankController.instance;
+        return this.instance;
     }
 
     public registerVault(): ISecureVaultRequisites{
@@ -36,38 +36,20 @@ export class BankController{
         const sender = this.vaultStore.find((element) => element.id === contract.sender.id);
         const receiver = this.vaultStore.find((element) => element.id === contract.receiver.id);
         if((sender && receiver) !== undefined){
-            contract.signAndTransfer();
-        }
-
-        try{
-            sender.withdraw(contract.value);
-        } catch(element){
-            contract.rejectTransfer();
-
-            return;
-        }
-
-        switch(contract.value.CurrencyType){
-            case "Material":
-                receiver.deposit(contract.value);
+            contract.signAndTransfer()
+            try{
+                sender.transfer(contract.value,receiver);
                 contract.closeTransfer();
-                break;
-            case "Crypt":
-                setTimeout(() => {
-                    receiver.deposit(contract.value);
-                    contract.closeTransfer();
-                },3000);
-                break;
-            case "Metal-deposit":
-                setTimeout(() => {
-                    receiver.deposit(contract.value);
-                    contract.closeTransfer();
-                },6000);
-                break;
-            default:
+
+            } catch(e) {
                 contract.rejectTransfer();
+            }
+        } else {
+            contract.rejectTransfer();
+            throw new Error("Что то пошло не так перепроверьте данные");
         }
 
+        
     }
 }
 
